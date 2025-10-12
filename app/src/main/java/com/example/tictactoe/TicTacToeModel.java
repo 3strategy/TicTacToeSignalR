@@ -31,6 +31,15 @@ public class TicTacToeModel {
         }
     }
 
+    // Explicitly set a move for a given player (used for remote moves)
+    public boolean setMove(int row, int col, String player) {
+        if (isLegal(row, col)) {
+            board[row][col] = player;
+            return true;
+        }
+        return false;
+    }
+
     public boolean checkWin() {
         // TODO: Implement win checking logic
         return false;
