@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.microsoft.signalr.HubConnection;
 import com.microsoft.signalr.HubConnectionBuilder;
+import com.microsoft.signalr.HubConnectionState;
 
 public class SignalRService {
     private static final String TAG = "SignalRService";
@@ -70,5 +71,26 @@ public class SignalRService {
             }
         }
     }
-}
 
+    public boolean isConnected() {
+        return connection != null && connection.getConnectionState() == HubConnectionState.CONNECTED;
+    }
+
+    public void sendMove(int row, int col, String player) {
+        // Encode move as "row,col,player" for server-side handling
+        String key = row + "," + col + "," + player;
+        sendKey(key);
+    }
+
+    public void sendKey(String key) {
+        if (connection == null) {
+            Log.w(TAG, "sendKey called but connection is null");
+            return;
+        }
+        try {
+            connection.send("SendKey", key);
+        } catch (Throwable t) {
+            Log.e(TAG, "Failed to send key: " + t.getMessage());
+        }
+    }
+}
