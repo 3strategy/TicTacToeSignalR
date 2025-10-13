@@ -1,8 +1,7 @@
 # Tic-Tac-Toe-SignalR
 
 
-{: .box-note}
-במדריך זה נלמד כיצד להרחיב את אפליקציית ה־Tic Tac Toe (איקס עיגול) כך ששני מכשירי אנדרואיד יוכלו לשחק אחד מול השני דרך שרת **SignalR**.
+#### במדריך זה נלמד כיצד להרחיב את אפליקציית ה־Tic Tac Toe (איקס עיגול) כך ששני מכשירי אנדרואיד יוכלו לשחק אחד מול השני דרך שרת **SignalR**.
 
 
 
@@ -28,8 +27,7 @@ SignalR היא ספריית קוד פתוח של מיקרוסופט שמיועד
 
 ## שלב 1 – התחברות ל־SignalR
 
-{: .box-note}
-בשלב זה נגדיר את כל התשתית להתחברות לשרת SignalR דרך כתובת IP מקומית, ונאפשר תקשורת **HTTP** רגילה (לא מאובטחת) לצורכי פיתוח.
+#### בשלב זה נגדיר את כל התשתית להתחברות לשרת SignalR דרך כתובת IP מקומית, ונאפשר תקשורת **HTTP** רגילה (לא מאובטחת) לצורכי פיתוח.
 
 
 
@@ -57,8 +55,7 @@ B -->|log / callback| A
 ### עיקרי הקוד
 #### הוספת הגדרה להרשאת תקשורת HTTP
 
-{: .box-success}
-ניצור קובץ חדש תחת  `res/xml/`  בשם `network_security_config.xml` יש להתאים את כתובת ה-ip לזו של שרת ה-SignalR שבכיתה:
+#### ניצור קובץ חדש תחת  `res/xml/`  בשם `network_security_config.xml` יש להתאים את כתובת ה-ip לזו של שרת ה-SignalR שבכיתה:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -75,7 +72,7 @@ B -->|log / callback| A
 
 `app\src\main\AndroidManifest.xml`
 
-{% highlight xml mark_lines="1 7" %}
+```xml
 <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -85,13 +82,13 @@ B -->|log / callback| A
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
             android:name=".MainActivity"
-{% endhighlight %}
+```
 
 ### עיצוב ממשק המשתמש
 נעדכן את קובץ `activity_main.xml` כך שיכלול שדה להזנת כתובת השרת וכפתור חיבור:
 
 
-{% highlight xml mark_lines="6 7 8 10 11 12 14 15 16 17 18" %}
+```xml
 <LinearLayout
 android:orientation="vertical"
 android:gravity="center"
@@ -113,16 +110,16 @@ android:padding="16dp">
     <!-- כל השאר ללא שינוי -->
 
 </LinearLayout>
-{% endhighlight %}
+```
 
 
 ### נעדכן חבילות חדשות ב-build.gradle (Module:app)
 
-{% highlight java mark_lines="2" %}
+```java
 dependencies {
 implementation 'com.microsoft.signalr:signalr:8.0.0'
 }
-{% endhighlight %}
+```
 
 לאחר שינוי בגריידל, יש לסנכרן את הפרוייקט באמצעות הכפתור הזה:
 ![alt text](/assets/img/05Tic/image.png)
@@ -293,8 +290,7 @@ public void onConnectClick(View view) {
 ---
 
 ## שלב 2 – שליחת מהלך (Send Key)
-{: .box-note}
-בשלב זה נוסיף שליחת מהלך לשחקן המקומי — כל לחיצה על תא בלוח תשדר לשרת את המהלך שנבחר (שורה, עמודה, וסימן X או O).
+#### בשלב זה נוסיף שליחת מהלך לשחקן המקומי — כל לחיצה על תא בלוח תשדר לשרת את המהלך שנבחר (שורה, עמודה, וסימן X או O).
 
 ### קבצים שעודכנו
 - `MainActivity.java`
@@ -311,7 +307,7 @@ C --> D[SignalR Server]
 ```
 
 ### תוספת ל- MainActivity:
-{% highlight java diff mark_lines="3 5 6 7" %}
+```java
 if (model.isLegal(row, col)) {
 model.makeMove(row, col);
 +  String player = model.getCurrentPlayer();
@@ -322,7 +318,7 @@ model.makeMove(row, col);
 
             if (model.checkWin()) {
                 model.changePlayer();
-{% endhighlight %}
+```
 
 
 
@@ -347,8 +343,7 @@ Hub received key: 1,2,X
 
 ## שלב 3 – קבלת מהלך ושילוב בלוגיקת המשחק
 
-{: .box-note}
-בשלב זה נחבר את האירוע **ReceiveKey** מהשרת כך שכל מכשיר יעדכן את הלוח אוטומטית בעת קבלת מהלך מהשחקן השני.
+#### בשלב זה נחבר את האירוע **ReceiveKey** מהשרת כך שכל מכשיר יעדכן את הלוח אוטומטית בעת קבלת מהלך מהשחקן השני.
 
 ### קבצים שעודכנו
 - `MainActivity.java`
@@ -365,7 +360,7 @@ D --> E["()changePlayer"]
 
 ### עדכון on("ReceiveKey" ב- `MainActivity.java`
 
-{% highlight java %}
+```java
 @Override
 public void onReceiveKey(String key) {
 Log.d(TAG, "HandleOthersKey: " + key);
@@ -397,12 +392,12 @@ String p = parts[2].trim();
     }
 }
 });
-{% endhighlight %}
+```
 
 
 ### הוספת פעולה בקובץ `TicTacToeModel.java`
 
-{% highlight java mark_lines="2" %}
+```java
 // טיפול במהלך משחק שהתקבל מהשרת (used for remote moves)
 public boolean setMove(int row, int col, String player) {
 if (isLegal(row, col)) {
@@ -411,7 +406,7 @@ return true;
 }
 return false;
 }
-{% endhighlight %}
+```
 
 
 
@@ -422,8 +417,7 @@ return false;
 
 ## סיכום
 
-{: .box-success}
-חיברנו את משחק האיקס עיגול ל-SignalR 🎮  
+#### חיברנו את משחק האיקס עיגול ל-SignalR 🎮  
 מעתה ניתן לשחק בין שני מכשירים או יותר בזמן אמת.
 
 בשלבים הבאים תוכלו להוסיף:
