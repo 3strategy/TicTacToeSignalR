@@ -8,3 +8,4 @@
 .idea/runConfigurations.xml
 .idea/migrations.xml
 .idea/compiler.xml
+/appInsightsSettings.xml
