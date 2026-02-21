@@ -2,33 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editServerIP"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="192.168.88.4"
-            android:inputType="textUri"
-            android:singleLine="true" />
+            android:hint="109.226.44.197"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="#111111"
+            android:textColorHint="#666666" />
 
         <Button
             android:id="@+id/buttonConnect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Connect"
+            android:layout_marginStart="8dp"
             android:onClick="onConnectClick"
-            android:layout_marginStart="8dp" />
+            android:text="@string/connect" />
     </LinearLayout>
 
     <GridLayout
@@ -41,72 +44,90 @@
             android:id="@+id/button00"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="0,0"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="0,0"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button01"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="0,1"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="0,1"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button02"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="0,2"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="0,2"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button10"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="1,0"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="1,0"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button11"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="1,1"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="1,1"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button12"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="1,2"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="1,2"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button20"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="2,0"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="2,0"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button21"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="2,1"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="2,1"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/button22"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:tag="2,2"
+            android:background="@drawable/bg_square_button"
             android:onClick="onCellClick"
+            android:tag="2,2"
+            android:textColor="#111111"
             android:textSize="24sp" />
 
     </GridLayout>

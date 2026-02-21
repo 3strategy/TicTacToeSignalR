@@ -1,7 +1,7 @@
-package com.example.tictactoe;
+package com.example.tictactoe.models;
 
 public class TicTacToeModel {
-    private String[][] board;
+    private final String[][] board;
     private String currentPlayer;
 
     public TicTacToeModel() {
@@ -31,7 +31,6 @@ public class TicTacToeModel {
         }
     }
 
-    // Explicitly set a move for a given player (used for remote moves)
     public boolean setMove(int row, int col, String player) {
         if (isLegal(row, col)) {
             board[row][col] = player;

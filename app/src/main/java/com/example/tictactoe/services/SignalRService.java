@@ -1,4 +1,4 @@
-package com.example.tictactoe;
+package com.example.tictactoe.services;
 
 import android.util.Log;
 
@@ -8,7 +8,6 @@ import com.microsoft.signalr.HubConnectionState;
 
 public class SignalRService {
     private static final String TAG = "SignalRService";
-
     private HubConnection connection;
 
     public interface Listener {
@@ -19,36 +18,40 @@ public class SignalRService {
     }
 
     public void connect(String baseIp, Listener listener) {
-        // Build hub URL: http://<ip>:8081/gamehub
-        final String url = "http://" + baseIp + ":8081/gamehub";
+        final String url = "http://" + baseIp + ":80/gamehub";
 
-        // Dispose previous connection if exists
         if (connection != null) {
-            try { connection.stop(); } catch (Exception ignored) {}
+            try {
+                connection.stop();
+            } catch (Exception ignored) {
+            }
             connection = null;
         }
 
         connection = HubConnectionBuilder.create(url).build();
 
-        // Subscriptions
         connection.on("ReceiveMessage", (user, message) -> {
             Log.d(TAG, "ReceiveMessage: " + user + ": " + message);
-            if (listener != null) listener.onReceiveMessage(user, message);
+            if (listener != null) {
+                listener.onReceiveMessage(user, message);
+            }
         }, String.class, String.class);
 
         connection.on("ReceiveKey", (key) -> {
             Log.d(TAG, "ReceiveKey: " + key);
-            if (listener != null) listener.onReceiveKey(key);
+            if (listener != null) {
+                listener.onReceiveKey(key);
+            }
         }, String.class);
 
-        // Connect on background thread
         new Thread(() -> {
             try {
                 connection.start().blockingAwait();
                 Log.d(TAG, "Connected to " + url);
-                if (listener != null) listener.onConnected();
+                if (listener != null) {
+                    listener.onConnected();
+                }
 
-                // Debug: send a test message like the C# sample
                 try {
                     connection.send("SendMessage", "Jojo", "Hello everybody");
                 } catch (Throwable t) {
@@ -56,7 +59,9 @@ public class SignalRService {
                 }
             } catch (Throwable t) {
                 Log.e(TAG, "Hub exception: " + t.getMessage());
-                if (listener != null) listener.onDisconnected(t);
+                if (listener != null) {
+                    listener.onDisconnected(t);
+                }
             }
         }).start();
     }
@@ -77,7 +82,6 @@ public class SignalRService {
     }
 
     public void sendMove(int row, int col, String player) {
-        // Encode move as "row,col,player" for server-side handling
         String key = row + "," + col + "," + player;
         sendKey(key);
     }

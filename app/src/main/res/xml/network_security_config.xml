@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!-- Allow cleartext only to the development server IP -->
+    <!-- Allow cleartext only to the SignalR server IP used in TicTacMenu -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="false">192.168.88.4</domain>
+        <domain includeSubdomains="false">109.226.44.197</domain>
     </domain-config>
 </network-security-config>
 

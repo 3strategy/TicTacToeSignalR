@@ -1,6 +1,5 @@
-package com.example.tictactoe;
+package com.example.tictactoe.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,10 +7,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tictactoe.R;
+import com.example.tictactoe.models.TicTacToeModel;
+import com.example.tictactoe.services.SignalRService;
+
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private TicTacToeModel model;
     private final SignalRService signalRService = new SignalRService();
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +29,11 @@ public class MainActivity extends Activity {
         EditText ipEdit = findViewById(R.id.editServerIP);
         String ip = ipEdit.getText().toString().trim();
         if (ip.isEmpty()) {
-            // Fall back to hint if empty
-            ip = ipEdit.getHint() != null ? ipEdit.getHint().toString() : "192.168.88.4";
+            ip = ipEdit.getHint() != null ? ipEdit.getHint().toString() : "109.226.44.197";
         }
 
         String finalIp = ip;
-        Toast.makeText(this, "Connecting to " + finalIp + ":8081", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Connecting to " + finalIp + ":80", Toast.LENGTH_SHORT).show();
         signalRService.connect(finalIp, new SignalRService.Listener() {
             @Override
             public void onConnected() {
@@ -38,7 +42,11 @@ public class MainActivity extends Activity {
 
             @Override
             public void onDisconnected(Throwable error) {
-                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Hub error: " + (error != null ? error.getMessage() : "unknown"), Toast.LENGTH_LONG).show());
+                runOnUiThread(() -> Toast.makeText(
+                        MainActivity.this,
+                        "Hub error: " + (error != null ? error.getMessage() : "unknown"),
+                        Toast.LENGTH_LONG
+                ).show());
             }
 
             @Override
@@ -49,25 +57,26 @@ public class MainActivity extends Activity {
             @Override
             public void onReceiveKey(String key) {
                 Log.d(TAG, "HandleOthersKey: " + key);
-                // Expecting format: "row,col,player"
                 String[] parts = key.split(",");
-                if (parts.length != 3) return;
+                if (parts.length != 3) {
+                    return;
+                }
                 try {
                     int r = Integer.parseInt(parts[0].trim());
                     int c = Integer.parseInt(parts[1].trim());
                     String p = parts[2].trim();
 
                     runOnUiThread(() -> {
-                        // Only apply if the cell is still empty
                         if (model.isLegal(r, c)) {
                             boolean applied = model.setMove(r, c, p);
                             if (applied) {
-                                Button target = findViewById(idFor(r, c));
-                                if (target != null) target.setText(p);
-
-                                // Optional: win/tie checks would go here if implemented
-
-                                // Keep turn alternation consistent with local logic
+                                int id = idFor(r, c);
+                                if (id != 0) {
+                                    Button target = findViewById(id);
+                                    if (target != null) {
+                                        target.setText(p);
+                                    }
+                                }
                                 model.changePlayer();
                             }
                         }
@@ -90,9 +99,8 @@ public class MainActivity extends Activity {
             model.makeMove(row, col);
             String player = model.getCurrentPlayer();
             button.setText(player);
-            // Send the move to the hub: "row,col,player"
             signalRService.sendMove(row, col, player);
-            
+
             if (model.checkWin()) {
                 model.changePlayer();
                 Toast.makeText(this, "Player " + model.getCurrentPlayer() + " wins!", Toast.LENGTH_SHORT).show();
@@ -108,19 +116,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void resetBoard() {
-        int[] buttonIds = {
-            R.id.button00, R.id.button01, R.id.button02,
-            R.id.button10, R.id.button11, R.id.button12,
-            R.id.button20, R.id.button21, R.id.button22
-        };
-        
-        for (int id : buttonIds) {
-            Button button = findViewById(id);
-            button.setText("");
-        }
-    }
-
     private int idFor(int row, int col) {
         if (row == 0 && col == 0) return R.id.button00;
         if (row == 0 && col == 1) return R.id.button01;
@@ -132,5 +127,18 @@ public class MainActivity extends Activity {
         if (row == 2 && col == 1) return R.id.button21;
         if (row == 2 && col == 2) return R.id.button22;
         return 0;
+    }
+
+    private void resetBoard() {
+        int[] buttonIds = {
+                R.id.button00, R.id.button01, R.id.button02,
+                R.id.button10, R.id.button11, R.id.button12,
+                R.id.button20, R.id.button21, R.id.button22
+        };
+
+        for (int id : buttonIds) {
+            Button button = findViewById(id);
+            button.setText("");
+        }
     }
 }
