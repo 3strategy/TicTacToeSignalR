@@ -11,4 +11,19 @@
     <string name="home_fragment_text">Home: place holder fragment. Open the drawer to launch game trials.</string>
     <string name="profile_fragment_text">Profile: placeholder fragment.</string>
     <string name="local_mode_connect_disabled">Main2. Connect is disabled in local prep mode.</string>
+
+    <string name="login_title">Login</string>
+    <string name="login_email_hint">User name / e-mail</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_remember_me">Remember me</string>
+    <string name="login_button">Login</string>
+    <string name="login_button_loading">Logging in...</string>
+    <string name="login_google_button">Login with Google</string>
+    <string name="login_google_later">Google sign-in will be added in lesson 018d (SHA1 required)</string>
+    <string name="login_success">Login success</string>
+    <string name="login_error_email_required">Enter e-mail</string>
+    <string name="login_error_password_required">Enter password</string>
+    <string name="login_error_no_user">Login succeeded but no user was returned</string>
+    <string name="login_error_failed_generic">Login failed</string>
+    <string name="login_error_failed_with_reason">Login failed: %1$s</string>
 </resources>

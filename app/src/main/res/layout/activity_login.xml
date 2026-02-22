@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
+    android:padding="24dp">
 
     <TextView
         android:id="@+id/tVtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Login"
-        android:textStyle="bold"
+        android:text="@string/login_title"
         android:textSize="28sp"
-        android:layout_marginBottom="20dp" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/eTemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="User name / e-mail"
+        android:hint="@string/login_email_hint"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Password"
+        android:hint="@string/login_password_hint"
         android:inputType="textPassword" />
 
     <CheckBox
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Remember me" />
+        android:text="@string/login_remember_me" />
 
     <Button
         android:id="@+id/btn"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="onLoginClick"
-        android:text="Login" />
+        android:text="@string/login_button" />
 
     <Button
         android:id="@+id/btnGoogleSignIn"
@@ -53,6 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:onClick="onGoogleLoginClick"
-        android:text="Login with Google" />
+        android:text="@string/login_google_button" />
 
 </LinearLayout>

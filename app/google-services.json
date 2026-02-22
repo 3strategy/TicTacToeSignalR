@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "305446301273",
+    "firebase_url": "https://guysfbfinal-default-rtdb.firebaseio.com",
+    "project_id": "guysfbfinal",
+    "storage_bucket": "guysfbfinal.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305446301273:android:292de17e5e970fc7d9cb48",
+        "android_client_info": {
+          "package_name": "com.example.tasks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4scqV6ko3sTh1SUTIh4MNorlAiwnS8pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305446301273:android:6f58327d17da4e0dd9cb48",
+        "android_client_info": {
+          "package_name": "com.example.tictactoe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4scqV6ko3sTh1SUTIh4MNorlAiwnS8pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
