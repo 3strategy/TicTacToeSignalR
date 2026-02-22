@@ -1,6 +1,7 @@
 package com.example.tictactoe.shell;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -13,8 +14,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.tictactoe.R;
+import com.example.tictactoe.activities.LoginActivity;
 import com.example.tictactoe.activities.Main2Activity;
 import com.example.tictactoe.activities.MainActivity;
+import com.example.tictactoe.services.FBRef;
 import com.google.android.material.navigation.NavigationView;
 
 public class MenuActivity extends AppCompatActivity {
@@ -51,6 +54,8 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(this, Main2Activity.class));
             } else if (itemId == R.id.nav_profile) {
                 showFragment(new ProfileFragment());
+            } else if (itemId == R.id.nav_logout) {
+                logoutAndOpenLogin();
             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
@@ -75,5 +80,17 @@ public class MenuActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.content_container, fragment)
                 .commit();
+    }
+
+    private void logoutAndOpenLogin() {
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
+        settings.edit().putBoolean("stayConnect", false).apply();
+
+        FBRef.refAuth.signOut();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

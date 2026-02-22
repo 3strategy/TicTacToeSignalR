@@ -8,6 +8,7 @@
     <string name="menu_local_game">SignalR Game</string>
     <string name="menu_rtdb_prep">Local Game (Prep)</string>
     <string name="menu_profile">Profile</string>
+    <string name="menu_logout">Disconnect</string>
     <string name="home_fragment_text">Home: place holder fragment. Open the drawer to launch game trials.</string>
     <string name="profile_fragment_text">Profile: placeholder fragment.</string>
     <string name="local_mode_connect_disabled">Main2. Connect is disabled in local prep mode.</string>
