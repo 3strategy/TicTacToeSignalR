@@ -6,16 +6,22 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:theme="@style/Theme.TicTacToeSignalR"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/Theme.TicTacToeSignalR">
         <activity
-            android:name=".shell.MenuActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".shell.MenuActivity"
+            android:exported="false" />
+
+
         <activity
             android:name=".activities.Main2Activity"
             android:exported="false" />

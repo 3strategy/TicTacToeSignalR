@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.tictactoe"
-        minSdk 21
+        minSdk 23
         targetSdk 36
         versionCode 1
         versionName "1.0"
@@ -31,4 +31,6 @@ dependencies {
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.microsoft.signalr:signalr:8.0.0'
+    implementation 'androidx.activity:activity:1.12.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 }
