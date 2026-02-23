@@ -86,6 +86,7 @@ public class MenuActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
         settings.edit().putBoolean("stayConnect", false).apply();
 
+        FBRef.signOutGoogle();
         FBRef.refAuth.signOut();
 
         Intent intent = new Intent(this, LoginActivity.class);
