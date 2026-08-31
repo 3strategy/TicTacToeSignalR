@@ -90,3 +90,5 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+/.idea/deviceManager.xml
+/.idea/markdown.xml
